@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: hack-day-pxf 
+  labels:
+    app:  pxf
+    tier: backend
+spec:
+  # this replicas value is default
+  # modify it according to your case
+  replicas: 3 
+  selector:
+    matchLabels:
+      tier: backend
+    matchExpressions:
+      - {key: tier, operator: In, values: [backend]}
+  template:
+    metadata:
+      labels:
+        app: pxf 
+        tier: backend
+    spec:
+      containers:
+      - name: hack-day-pxf 
+        image: gpcloudbot/hack-day-pxf:latest 
+        imagePullPolicy: Always 
+        resources:
+          requests:
+            cpu: 0.5
+            memory: 2Gi
+        env:
+        - name: NAMENODE_ADDRESS
+          value: hack-day-pxf-namenode.gpkubernetes.gpdb.pivotal.io
+        ports:
+        - containerPort: 5888
+

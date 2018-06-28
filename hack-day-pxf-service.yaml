@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: hack-day-pxf-service
+spec:
+  selector:
+    app: pxf
+  ports:
+  - protocol: TCP
+    port: 5888
+    targetPort: 5888
+  loadBalancerIP: 35.194.14.132
+  type: LoadBalancer
+
